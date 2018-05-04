@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+
+<script type="text/javascript">
+  $(function(){
+	  /* $("input[type=button]").on("click" , function(){
+		  $.ajax({
+			   type:"post" ,//전송방식
+			   url: "../upLoadServlet", //서버주소
+			   data:$("#upLoadForm").serialize() ,//서버에게 보낼 parameter 정보
+			   dataType:"text" , //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
+		       success: function(result){//
+		    	  alert(result)
+		       } , 
+		       error:function(err){
+		    	   console.log("에러 발생 : " + err);
+		       }
+		  });
+	  }); */
+	  
+	  /////////////////////////////////////////////////////////
+	  /*업로드기능을 ajax로 할때는 ajax()함수는 안되고 ajaxForm()함수를 사용한다.*/
+	  
+	  $("input[type=button]").on("click", function(){
+		  $("#upLoadForm").ajaxForm({
+			  type:"post" ,//전송방식
+			   url: "../upLoadServlet", //서버주소
+			   dataType:"json" , //서버가 front로 보내주는 데이터 타입(text,html,xml,json)
+		       success: function(result){//
+		    	 // alert(result)
+		    	 var str="";
+		    	 $.each(result, function(index, item){
+		    		 str+="작성자 : " + item.name +"<br>";
+		    		 str+="제목 : " + item.subject +"<br>";
+		    		 str+="파일이름 : " + item.fileName +"<br>";
+		    		 str+="파일사이즈 : " + item.fileSize +"<br>";
+		    	 })
+		    	 $("div").html(str);
+		    	 
+		       } , 
+		       error:function(err){
+		    	   console.log("에러 발생 : " + err);
+		       }
+		  });//ajaxForm 끝
+		  
+		  $("#upLoadForm").submit();//전송
+		  
+	  });
+	  
+	  
+  })
+
+</script>
+</head>
+<body>
+<h1> Ajax를 이용한 UpLoad </h1>
+<form method="post" enctype="multipart/form-data" name="upLoadForm" id="upLoadForm">
+ 이름 : <input type="text" name="name"/> <p>
+ 제목 : <input type="text" name="subject"/> <p>
+ 파일첨부 : <input type="file" name="file"/> <p>
+ <input type="button" value="업로드하기" />
+</form>
+
+<hr>
+<div></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta  charset="UTF-8"/>
+    <title>load 메서드</title>
+	<style>
+		div{width:300px;height:200px;
+		    background-color:yellow; 
+		}
+	</style>
+    
+     <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+     
+     <script>
+        $(function(){
+        	$("#btn").click(function(){
+        		//var params = "name="+$("#name").val()+"&message=Ajax재미있다!!";//get방식
+        		
+        		//parameter정보를 JSON의 형태로 전달 => {name:value , name:value , }
+        		var params = {"name":$("#name").val() , message :"Ajax재미있다!!" };
+        		
+        		$("#display").load("13-2.serverPage.jsp", params , function(){
+        			alert("서버요청 완료되엇습니다!!")
+        		});
+        	})
+        })
+     </script>
+     
+    
+    
+</head>
+<body>
+	<h3>소스 13-2 $(selector).load(url , [params] , [callbackFun]) 함수 </h3>
+	<input type="text" id="name" value="장희정" />
+    <input type="button" id="btn" value="load함수 요청" />
+    <div id="display">요청결과 출력영역</div>
+</body>
+</html>
+
+
+
+
+
+
+
